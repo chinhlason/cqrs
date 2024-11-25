@@ -1,13 +1,14 @@
 version: "3.7"
 services:
   postgres:
-    image: debezium/postgres:13
+    image: postgres
+    container_name: postgres
     ports:
       - "5432:5432"
     environment:
-      - POSTGRES_USER=docker
-      - POSTGRES_PASSWORD=docker
-      - POSTGRES_DB=exampledb
+      - POSTGRES_USER=root
+      - POSTGRES_PASSWORD=root
+      - POSTGRES_DB=cqrs
 
   zookeeper:
     image: confluentinc/cp-zookeeper:5.5.3
@@ -49,4 +50,14 @@ services:
       - SCHEMA_REGISTRY_LISTENERS=http://schema-registry:8081,http://localhost:8081
     ports:
       - "8081:8081"
+    depends_on: [zookeeper, kafka]
+
+  kafka-ui:
+    image: provectuslabs/kafka-ui:latest
+    environment:
+      - KAFKA_CLUSTERS_0_NAME=local
+      - KAFKA_CLUSTERS_0_BOOTSTRAPSERVERS=kafka:9092
+      - KAFKA_CLUSTERS_0_ZOOKEEPER=zookeeper:2181
+    ports:
+        - "8082:8080"
     depends_on: [zookeeper, kafka]
