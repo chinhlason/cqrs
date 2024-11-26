@@ -2,6 +2,7 @@ package main
 
 import (
 	"cqrs-postgres-elastic-search-debezium/command"
+	"cqrs-postgres-elastic-search-debezium/sync"
 	"fmt"
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
@@ -35,6 +36,25 @@ func main() {
 
 	http.HandleFunc("/order/create", handler.InsertOrder)
 	http.HandleFunc("/order/update", handler.UpdateOrder)
+
+	//consumer
+	go func() {
+		err := sync.ConsumeMessage("localhost:29092", "debezium.public.orders", "test-group")
+		if err != nil {
+			log.Fatalf("failed to consume message: %v", err)
+		}
+	}()
+
+	es, err := sync.GetESClient("http://localhost:9200")
+	if err != nil {
+		log.Fatalf("failed to get es client: %v", err)
+	}
+
+	esClient := sync.NewESClient(es)
+	err = esClient.CreateIndex("orders")
+	if err != nil {
+		log.Fatalf("failed to create index: %v", err)
+	}
 
 	log.Println("server started at :8080...")
 	log.Fatal(http.ListenAndServe(":8080", nil))
