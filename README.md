@@ -40,5 +40,5 @@ Update : `curl --location 'http://localhost:8080/user/update' \
    }'`
 
 ### Or you can simply run the command : `make up` and `make es-up`, wait for docker to pull all the images, then `make cfg` to run all the command above and `make run` to run the program.  
-### Checking out at `localhost:8082` and use Postman to send the data, you can import postman data file in `/postman` folder.
+### Checking out endpoints at `localhost:8080` and use Postman to send the data, you can import postman data file in `/postman` folder.
 ### Open `localhost:5601` to visualize the data in Kibana and `localhost:8082` to check the data in Kafka connect.
