@@ -6,7 +6,7 @@ type User struct {
 	Email     string  `json:"email"`
 	CreateAt  int64   `json:"created_at"`
 	UpdatedAt int64   `json:"updated_at"`
-	Orders    []int64 `json:"orders"`
+	Orders    []Order `json:"orders"`
 }
 
 type Order struct {
@@ -44,4 +44,10 @@ type OrderMessage struct {
 	Source *Source `json:"source"`
 	Op     string  `json:"op"`
 	Tsms   int64   `json:"ts_ms"`
+}
+
+type ESRecord struct {
+	Index  string      `json:"_index"`
+	Id     string      `json:"_id"`
+	Source interface{} `json:"_source"`
 }

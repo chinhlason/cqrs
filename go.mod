@@ -4,6 +4,7 @@ go 1.23.0
 
 require (
 	github.com/IBM/sarama v1.43.3
+	github.com/elastic/go-elasticsearch/v7 v7.17.10
 	gorm.io/driver/postgres v1.5.10
 	gorm.io/gorm v1.25.12
 )
@@ -13,7 +14,6 @@ require (
 	github.com/eapache/go-resiliency v1.7.0 // indirect
 	github.com/eapache/go-xerial-snappy v0.0.0-20230731223053-c322873962e3 // indirect
 	github.com/eapache/queue v1.1.0 // indirect
-	github.com/elastic/go-elasticsearch v0.0.0 // indirect
 	github.com/golang/snappy v0.0.4 // indirect
 	github.com/hashicorp/errwrap v1.0.0 // indirect
 	github.com/hashicorp/go-multierror v1.1.1 // indirect
